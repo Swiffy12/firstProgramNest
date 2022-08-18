@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cat {
+  id    Int     @id @default(autoincrement())
+  name  String
+  breed String
+  color String
+  catId Int
+  owner Human   @relation(fields: [catId], references: [id])
+  Walks Walks[]
+}
+
+model Human {
+  id   Int      @id @default(autoincrement())
+  name String
+  cats Cat[]
+}
+
+model Walks {
+  id     Int      @id @default(autoincrement())
+  cat_id Int
+  date   DateTime @db.Date
+  Cat    Cat      @relation(fields: [cat_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "walks_fk")
+}

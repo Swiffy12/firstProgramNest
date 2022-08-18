@@ -1,9 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Dependencies } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+
 
 @Injectable()
+@Dependencies(PrismaService)
 export class HumansService {
-    getAllpeople() {
-		return 'Список всех людей'
+	constructor(PrismaService) {
+		this.prisma = PrismaService;
+	}
+
+    async getAllpeople() {
+		// const allUsers  = await this.prisma.Human.findMany()
+		// return allUsers
+		return 'asdasda'
 	}
 
 	getCatsOfOnePerson(id) {
