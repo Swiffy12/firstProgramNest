@@ -1,4 +1,4 @@
-import { Controller, Get, Bind, Dependencies, Param, Body, Put } from '@nestjs/common';
+import { Controller, Get, Bind, Dependencies, Param, Body, Post } from '@nestjs/common';
 import { HumansService } from './humans.service'
 
 @Controller('humans')
@@ -20,9 +20,16 @@ export class HumansController {
 		return this.HumansService.getCatsOfOnePerson(id);
 	}
 
-	@Put(':id')
+	@Post(':id')
 	@Bind(Param('id'), Body())
-	walk(id, cat) {
-		return this.HumansService.walkWithCat(id, cat);
+	walk(id, info) {
+		/* пример входных данных в payload
+{
+"id":1,
+"cat_id":2,
+"name":"Барсик"
+}
+		*/
+		return this.HumansService.walkWithCat(id, info);
 	}
 }

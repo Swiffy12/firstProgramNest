@@ -8,19 +8,19 @@ datasource db {
 }
 
 model Cat {
-  id    Int     @id @default(autoincrement())
-  name  String
-  breed String
-  color String
-  catId Int
-  owner Human   @relation(fields: [catId], references: [id])
-  Walks Walks[]
+  id       Int     @id @default(autoincrement())
+  name     String
+  breed    String
+  color    String
+  human_id Int
+  Human    Human   @relation(fields: [human_id], references: [id], map: "Cat_catId_fkey")
+  Walks    Walks[]
 }
 
 model Human {
-  id   Int      @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String
-  cats Cat[]
+  Cat  Cat[]
 }
 
 model Walks {

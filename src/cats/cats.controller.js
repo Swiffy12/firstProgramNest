@@ -17,6 +17,15 @@ export class CatsController {
 	@Post()
 	@Bind(Body())
 	addOne(cat) {
+		/* пример входных данных в payload
+{
+"id": 5,
+"name": "Жорик",
+"breed": "Американская",
+"color": "Серый",
+"human_id": 2
+}
+		*/
 		return this.CatsService.addCats(cat);
 	}
 }

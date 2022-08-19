@@ -4,7 +4,7 @@ CREATE TABLE "Cat" (
     "name" TEXT NOT NULL,
     "breed" TEXT NOT NULL,
     "color" TEXT NOT NULL,
-    "catId" INTEGER NOT NULL,
+    "human_id" INTEGER NOT NULL,
 
     CONSTRAINT "Cat_pkey" PRIMARY KEY ("id")
 );
@@ -27,7 +27,7 @@ CREATE TABLE "Walks" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Cat" ADD CONSTRAINT "Cat_catId_fkey" FOREIGN KEY ("catId") REFERENCES "Human"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Cat" ADD CONSTRAINT "Cat_catId_fkey" FOREIGN KEY ("human_id") REFERENCES "Human"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Walks" ADD CONSTRAINT "walks_fk" FOREIGN KEY ("cat_id") REFERENCES "Cat"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
