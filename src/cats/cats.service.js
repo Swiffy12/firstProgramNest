@@ -10,18 +10,27 @@ export class CatsService {
       this.prisma = PrismaService;
     }
 
+    async getCatsByFilter(req) {
+      const allCats = await this.prisma.Cat.findMany({
+        where: {
+            breed: req.query.breed,
+            color: req.query.color,
+        }
+      })
+      return allCats;
+    }
+
     async getAllCats() {
       const allCats  = await this.prisma.Cat.findMany({
         orderBy: [
           {
-            breed: 'desc',
+            breed: 'asc',
           },
           {
-            color: 'desc',
+            color: 'asc',
           }
         ]
       })
-		  console.log(allCats);
       return allCats;
     }
 

@@ -14,21 +14,33 @@ export class HumansService {
 		const allUsers  = await this.prisma.Human.findMany()
 		return allUsers
 	}
-
+	
 	async getCatsOfOnePerson(id) {
-		const human = await this.prisma.Human.findUnique({
+		const human = (await this.prisma.Human.findUnique({
 			where: {
 				id: Number(id),
 			},
-		})
-		const cats = await this.prisma.Cat.findMany({
-			where: {
-				human_id: Number(id),
-			},
-		})
-		const namesOfCats = await cats.map(a => ' ' + a.name);
-		return `Человек ${human.name} имеет ${cats.length} кота:${namesOfCats}`
+			include: {
+				Cat: true,
+			}
+		}))[0]
+		return human
 	}
+
+	// async getCatsOfOnePerson(id) {
+	// 	const human = await this.prisma.Human.findUnique({
+	// 		where: {
+	// 			id: Number(id),
+	// 		},
+	// 	})
+	// 	const cats = await this.prisma.Cat.findMany({
+	// 		where: {
+	// 			human_id: Number(id),
+	// 		},
+	// 	})
+	// 	const namesOfCats = await cats.map(a => ' ' + a.name);
+	// 	return `Человек ${human.name} имеет ${cats.length} кота:${namesOfCats}`
+	// }
 
 	async walkWithCat(id, info) {
 		const human = await this.prisma.Human.findUnique({
